@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard - Bank{% endblock %}
+{% block content %}
+<h1>Welcome, {{ user['username'] }}</h1>
+<section class="card">
+  <h2>Your Accounts</h2>
+  {% if accounts %}
+    <table>
+      <thead><tr><th>#</th><th>Account Number</th><th>Balance</th><th>Actions</th></tr></thead>
+      <tbody>
+        {% for a in accounts %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ a['account_number'] }}</td>
+            <td>₹ {{ '%.2f'|format(a['balance']) }}</td>
+            <td><a class="btn" href="{{ url_for('view_account', account_id=a['id']) }}">View</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No accounts yet.</p>
+  {% endif %}
+  <form method="post" action="{{ url_for('create_account') }}">
+    <button type="submit">+ Open New Account</button>
+  </form>
+</section>
+{% endblock %}

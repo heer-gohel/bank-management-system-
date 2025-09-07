@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Transfer - Bank{% endblock %}
+{% block content %}
+<h1>Transfer Funds</h1>
+<form method="post" class="card">
+  <label>From Account
+    <select name="from_account" required>
+      {% for a in accounts %}
+        <option value="{{ a['id'] }}">{{ a['account_number'] }} (₹ {{ '%.2f'|format(a['balance']) }})</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label>To Account Number
+    <input type="text" name="to_account" required>
+  </label>
+  <label>Amount
+    <input type="number" step="0.01" min="0.01" name="amount" required>
+  </label>
+  <button type="submit">Send</button>
+</form>
+{% endblock %}

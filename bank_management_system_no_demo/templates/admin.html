@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Admin - Bank{% endblock %}
+{% block content %}
+<h1>Admin Panel</h1>
+<div class="grid-2">
+  <section class="card">
+    <h2>Users</h2>
+    <table>
+      <thead><tr><th>ID</th><th>Username</th><th>Email</th><th>Admin</th><th>Created</th></tr></thead>
+      <tbody>
+        {% for u in users %}
+          <tr>
+            <td>{{ u['id'] }}</td>
+            <td>{{ u['username'] }}</td>
+            <td>{{ u['email'] }}</td>
+            <td>{{ 'Yes' if u['is_admin'] else 'No' }}</td>
+            <td>{{ u['created_at'] }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  <section class="card">
+    <h2>Accounts</h2>
+    <table>
+      <thead><tr><th>ID</th><th>Owner</th><th>Account #</th><th>Balance</th><th>Created</th></tr></thead>
+      <tbody>
+        {% for a in accounts %}
+          <tr>
+            <td>{{ a['id'] }}</td>
+            <td>{{ a['username'] }}</td>
+            <td>{{ a['account_number'] }}</td>
+            <td>₹ {{ '%.2f'|format(a['balance']) }}</td>
+            <td>{{ a['created_at'] }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</div>
+{% endblock %}
